@@ -411,6 +411,19 @@ export class LoanHistory extends Entity {
     this.set("borrowTime", Value.fromI32(value));
   }
 
+  get processTime(): i32 {
+    let value = this.get("processTime");
+    if (!value || value.kind == ValueKind.NULL) {
+      return 0;
+    } else {
+      return value.toI32();
+    }
+  }
+
+  set processTime(value: i32) {
+    this.set("processTime", Value.fromI32(value));
+  }
+
   get borrowAmount(): BigInt {
     let value = this.get("borrowAmount");
     if (!value || value.kind == ValueKind.NULL) {
@@ -500,6 +513,32 @@ export class LoanHistory extends Entity {
 
   set user(value: string) {
     this.set("user", Value.fromString(value));
+  }
+
+  get stakeId(): BigInt {
+    let value = this.get("stakeId");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set stakeId(value: BigInt) {
+    this.set("stakeId", Value.fromBigInt(value));
+  }
+
+  get txn(): string {
+    let value = this.get("txn");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toString();
+    }
+  }
+
+  set txn(value: string) {
+    this.set("txn", Value.fromString(value));
   }
 }
 

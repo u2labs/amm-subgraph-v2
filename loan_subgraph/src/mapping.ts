@@ -69,9 +69,12 @@ export function handleBorrow(event: Borrow): void {
   history.repayTime = loan.repayTime;
   history.loanId = event.params.tokenId;
   history.type = "BORROW";
+  history.processTime = event.block.timestamp.toI32();
+  history.txn = event.transaction.hash.toHex();
   history.stakeAmount = loan.stakeAmount;
   history.user = event.transaction.from.toHex();
   history.rewardUser = BigInt.fromI32(0);
+  history.stakeId = loan.stakeId;
   history.save()
 }
 
@@ -116,9 +119,12 @@ export function handlePayOff(event: PayOff): void {
   history.repayTime = loan.repayTime;
   history.loanId = event.params.tokenId;
   history.type = "LIQUIDATION";
+  history.processTime = event.block.timestamp.toI32();
+  history.txn = event.transaction.hash.toHex();
   history.stakeAmount = loan.stakeAmount;
-  history.user = event.transaction.from.toHex();
+  history.user = loan.user;
   history.rewardUser = event.params.rewardUser;
+  history.stakeId = loan.stakeId;
   history.save()
 }
 
@@ -139,14 +145,17 @@ export function handleReturnStakingNFT(event: ReturnStakingNFT): void {
     history = new LoanHistory(event.params.tokenId.toString().concat("REPAY"))
   }
   history.borrowAmount = loan.borrowAmount;
-  history.borrowTime = event.block.timestamp.toI32();
+  history.borrowTime = loan.borrowTime;
   history.repayAmount = loan.repayAmount;
   history.repayTime = loan.repayTime;
+  history.processTime = event.block.timestamp.toI32();
+  history.txn = event.transaction.hash.toHex();
   history.loanId = event.params.tokenId;
   history.type = "REPAY";
   history.stakeAmount = loan.stakeAmount;
   history.user = event.transaction.from.toHex();
   history.rewardUser = BigInt.fromI32(0);
+  history.stakeId = loan.stakeId;
   history.save()
 }
 

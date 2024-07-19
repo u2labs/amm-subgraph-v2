@@ -31,6 +31,7 @@ type LoanHistory @entity {
   id: ID! #LoanId+type
   type: String!
   borrowTime: Int!
+  processTime: Int!
   borrowAmount: BigInt!
   repayAmount: BigInt!
   repayTime: Int!
@@ -38,4 +39,6 @@ type LoanHistory @entity {
   loanId: BigInt!
   rewardUser: BigInt!
   user: User!
+  stakeId: BigInt!
+  txn: String!
 }
